@@ -9,38 +9,73 @@
   }
 }
 
+/* Animaciones de ScrollReveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animación del logo */
+@keyframes logoFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+.logo {
+  height: 36px;
+  margin-right: 12px;
+  filter: drop-shadow(0 2px 6px rgba(215,0,21,0.25));
+  animation: logoFloat 6s ease-in-out infinite;
+}
+.logo:hover {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 8px rgba(215,0,21,0.45));
+}
+
 .App {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 40px auto;
   padding: 20px;
-  color: #333;
+  color: var(--color-text);
 }
 
 .card {
-  background: #f9f9f9;
+  background: var(--color-card-bg);
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 16px var(--color-shadow);
   
   /* ¡Aquí aplicamos la animación! */
   animation: fadeIn 0.8s ease-out forwards;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px var(--color-shadow);
 }
 
 .card h2 {
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid var(--color-border);
   padding-bottom: 10px;
   margin-top: 0;
-  color: #d70015; /* Color Porsche */
+  color: var(--color-accent); /* Color Porsche */
 }
 
 .metric {
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .metric span:first-child {
@@ -49,7 +84,159 @@
 
 .metric-mxn {
   font-size: 0.9em;
-  color: #555;
+  color: #aaa;
   text-align: right;
   padding-top: 4px;
+}
+
+/* --- Tabs y tablas del análisis --- */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+
+.tab {
+  border: 1px solid var(--color-border);
+  background: var(--color-tab-bg);
+  color: var(--color-text);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tab:hover { 
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px var(--color-hover-shadow);
+}
+
+.tab.active {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.analysis-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.analysis-table th, .analysis-table td {
+  border: 1px solid var(--color-border);
+  padding: 6px 8px;
+}
+
+.analysis-table thead th {
+  background: var(--color-table-header-bg);
+}
+
+/* Header Porsche */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  background: var(--color-header-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+}
+.brand-title {
+  background: linear-gradient(90deg, var(--color-accent), #ffcc00 60%, #ffffff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.toggle {
+  border: 1px solid var(--color-border);
+  background: var(--color-tab-bg);
+  color: var(--color-text);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* --- Uploader --- */
+.uploader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 16px;
+}
+.upload-btn {
+  border: 1px solid var(--color-border);
+  background: var(--color-tab-bg);
+  color: var(--color-text);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(215,0,21,0.2) inset, 0 4px 14px rgba(0,0,0,0.25);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.upload-btn:hover {
+  box-shadow: 0 0 0 1px rgba(215,0,21,0.35) inset, 0 6px 18px rgba(215,0,21,0.25);
+  transform: translateY(-1px);
+}
+.file-name {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+.error-text {
+  color: var(--color-accent);
+}
+
+/* --- Chips de resumen de hojas --- */
+.sheet-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+.chip {
+  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, rgba(30,30,30,0.6), rgba(20,20,20,0.8));
+  padding: 10px 12px;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px var(--color-shadow);
+  position: relative;
+}
+.chip::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 10px;
+  padding: 1px;
+  background: linear-gradient(90deg, rgba(215,0,21,0.6), rgba(255,204,0,0.5));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
+.chip-title {
+  font-weight: 700;
+}
+.chip-meta {
+  display: block;
+  font-size: 0.85rem;
+  opacity: 0.8;
 }
