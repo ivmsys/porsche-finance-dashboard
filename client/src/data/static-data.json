@@ -1,0 +1,17 @@
+{
+  "balance_2024": {
+    "total_activos": 53527,
+    "total_pasivos": 30471,
+    "capital": 23056
+  },
+  "resultados_2024": {
+    "ingresos_ventas": 40083,
+    "utilidad_bruta": 10327,
+    "utilidad_neta": 3596
+  },
+  "ratios_2024": {
+    "liquidez_corriente": 1.41,
+    "margen_neto": 0.09,
+    "roe": 0.161
+  }
+}

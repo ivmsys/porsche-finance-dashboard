@@ -5,9 +5,11 @@ import ScrollReveal from './components/ScrollReveal';
 // ¡NUEVO! Importa el componente de gráfica
 import HistoricalChart from './components/HistoricalChart';
 import XlsxUploader from './components/XlsxUploader';
+import staticDataJson from './data/static-data.json';
+import historicalDataJson from './data/historical-data.json';
+import liveDataJson from './data/live-data.json';
 
 function App() {
-  const API = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'dark';
   });
@@ -27,36 +29,18 @@ function App() {
 
   // Hook para cargar los datos
   useEffect(() => {
-    async function fetchData() {
-      try {
-        // ¡ACTUALIZADO! Ahora cargamos 3 fuentes de datos
-        const [staticRes, liveRes, historicalRes, analysisRes] = await Promise.all([
-          fetch(`${API}/api/static-data`),
-          fetch(`${API}/api/live-data`),
-          fetch(`${API}/api/historical-data`),
-          fetch(`${API}/api/analysis`)
-        ]);
-
-        const staticJson = await staticRes.json();
-        const liveJson = await liveRes.json();
-        // ¡NUEVO!
-        const historicalJson = await historicalRes.json();
-        const analysisJson = await analysisRes.json();
-
-        setStaticData(staticJson);
-        setLiveData(liveJson);
-        // ¡NUEVO!
-        setHistoricalData(historicalJson);
-        setAnalysisData(analysisJson);
-
-      } catch (error) {
-        console.error("Error al cargar datos:", error);
-      } finally {
-        setLoading(false);
-      }
+    // Carga estática sin backend
+    try {
+      setStaticData(staticDataJson);
+      setLiveData(liveDataJson);
+      setHistoricalData(historicalDataJson);
+      // Sin backend: la fuente de análisis se carga al subir XLSX
+      setAnalysisData(null);
+    } catch (error) {
+      console.error('Error al cargar datos estáticos:', error);
+    } finally {
+      setLoading(false);
     }
-
-    fetchData();
   }, []);
 
   // Función para formatear los números
