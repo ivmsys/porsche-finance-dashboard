@@ -1,0 +1,11 @@
+# Dependencias
+node_modules/
+server/node_modules/
+client/node_modules/
+
+# Archivos de build de React
+client/build/
+
+# Archivos de entorno (para las API keys)
+.env
+server/.env
