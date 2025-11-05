@@ -57,7 +57,7 @@ function App() {
   }
 
   // Si falla alguna carga, muestra un error
-  if (!staticData || !liveData || !historicalData || !analysisData) {
+  if (!staticData || !liveData || !historicalData) {
     return <div className="App"><h1>Error al cargar los datos.</h1></div>;
   }
 
